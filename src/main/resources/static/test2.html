@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web SSH :)</title>
+  <link rel="stylesheet" href="vendor/xterm/dist/xterm.css" />
+  <script src="vendor/xterm/dist/xterm.js"></script>
+  <script src="vendor/xterm/dist/addons/fit/fit.js"></script>
+</head>
+<body>
+<div id="terminal"></div>
+<script>
+  var term = new Terminal();
+  term.open(document.getElementById('terminal'));
+  term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+</script>
+</body>
+</html>

@@ -30,7 +30,6 @@ public class ServerDetails {
 
 
     @NoArgsConstructor
-    @AllArgsConstructor
     @Getter
     @Setter
     @ToString
@@ -38,6 +37,12 @@ public class ServerDetails {
 
         private String user;
         private String password;
+
+        @Builder
+        public UserInfoImpl(String user, String password) {
+            this.user = user;
+            this.password = password;
+        }
 
         @Override
         public String getPassphrase() {
@@ -51,21 +56,25 @@ public class ServerDetails {
 
         @Override
         public boolean promptPassword(String message) {
+            System.out.println("promptPassword :: " + message);
             return true;
         }
 
         @Override
         public boolean promptPassphrase(String message) {
+            System.out.println("promptPassphrase :: " + message);
             return true;
         }
 
         @Override
         public boolean promptYesNo(String message) {
-            return false;
+            System.out.println("promptYesNo :: " + message);
+            return true;
         }
 
         @Override
         public void showMessage(String message) {
+            System.out.println("showMessage :: " + message);
         }
     }
 }

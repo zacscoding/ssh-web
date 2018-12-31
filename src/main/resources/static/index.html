@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web SSH :)</title>
+  <!--<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+  <!--<link href="/main.css" rel="stylesheet">-->
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+  <script src="/webjars/handlebars/4.0.11-1/handlebars.min.js"></script>
+
+</head>
+<body>
+
+<textarea id="console" style="width: 100%"></textarea>
+<input type="text" id="message">
+<button id="btn">Send</button>
+
+<script>
+  var socket = new SockJS('/ssh-websocket');
+  var stompClient = Stomp.over(socket);
+
+  $(function () {
+    var $textarea = $('#console');
+    stompClient.connect({}, function (frame) {
+      console.log('Connected ' + frame);
+
+      stompClient.subscribe('/topic/ssh/shell', function (resultObj) {
+        $textarea.val($textarea.val() + resultObj.body);
+      });
+    });
+
+    $(document).on('click', '#btn', function (e) {
+      var text = $('#message').val();
+      stompClient.send('/app/ssh/shell', {}, text);
+    });
+
+    $("#console").on("keydown", function (e) {
+      if (e.which == 13) {
+
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>

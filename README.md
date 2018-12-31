@@ -6,6 +6,6 @@
 > ## TODO  
 
 - [x] ssh pooling  
-- [ ] ssh execute
-- [ ] websocket
-- [ ] command line console view
+- [ ] ssh shell + websocket  
+- [ ] command line console view (terminal emulator)  
+(xterm?, jQuery Terminal Emulator?)

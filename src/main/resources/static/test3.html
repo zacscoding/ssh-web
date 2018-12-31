@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ptty terminal emulator example</title>
+  <style type="text/css">
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="terminal"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="vendor/ptty/ptty.jquery.min.js"></script>
+<script>
+  // https://gitlab.com/pachanka/ptty
+  $(document).ready(function () {
+    console.log('111');
+    // Start ptty
+    var $ptty = $('#terminal').Ptty({
+      ps        : '$',
+      theme     : 'boring',
+      i18n      : {
+        welcome: 'Welcome to the matrix.'
+      },
+      before_cmd: function (cmd) {
+        console.log('before_cmd: first. Called before every command', cmd);
+        cmd.rsp_custom = 'This sets out';
+        return cmd;
+      },
+      after_cmd : function (cmd) {
+        console.log('after_cmd: fifth. Called after every command', cmd);
+        cmd.out = 'testtest';
+        return cmd;
+        //return cmd;
+      }
+    });
+
+    $ptty.register('response', {
+      name  : 'rsp_custom',
+      method: function (cmd) {
+        // Any command that returns "rsp_custom" will trigger this.
+        console.log('rsp_custom called.');
+        cmd.out = cmd.rsp_custom;
+        // Remove from the response object.
+        delete (cmd.rsp_custom);
+        return cmd;
+      }
+    });
+
+    /*// Register a command.
+    $ptty.register('command', {
+      name   : 'order',
+      method : function (cmd) {
+        console.log('command: third (also exclusive to "order" command)', cmd);
+        cmd.out = 'This will be overwritten by the line bellow.';
+        cmd.rsp_custom = 'Ha! This is the output.';
+        return cmd;
+      },
+      options: [],
+      help   : 'Order of occurrences.'
+    });*/
+  });
+</script>
+</body>
+</html>
