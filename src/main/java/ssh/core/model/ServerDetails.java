@@ -46,7 +46,8 @@ public class ServerDetails {
 
         @Override
         public String getPassphrase() {
-            return password;
+            return null;
+            // return password;
         }
 
         @Override
@@ -56,25 +57,28 @@ public class ServerDetails {
 
         @Override
         public boolean promptPassword(String message) {
-            System.out.println("promptPassword :: " + message);
-            return true;
+            // System.out.println("promptPassword :: " + message);
+            // return true;
+            return false;
         }
 
         @Override
         public boolean promptPassphrase(String message) {
-            System.out.println("promptPassphrase :: " + message);
-            return true;
+            // System.out.println("promptPassphrase :: " + message);
+            // return true;
+            return false;
         }
 
         @Override
         public boolean promptYesNo(String message) {
-            System.out.println("promptYesNo :: " + message);
-            return true;
+            // System.out.println("promptYesNo :: " + message);
+            // return true;
+            return false;
         }
 
         @Override
         public void showMessage(String message) {
-            System.out.println("showMessage :: " + message);
+            // System.out.println("showMessage :: " + message);
         }
     }
 }

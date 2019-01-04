@@ -9,6 +9,8 @@ import org.apache.commons.pool2.impl.DefaultPooledObject;
 import ssh.core.model.ServerDetails;
 
 /**
+ * JSch session factory
+ *
  * @author zacconding
  * @Date 2018-12-31
  * @GitHub : https://github.com/zacscoding
@@ -18,7 +20,7 @@ public class JSchSessionFactory extends BaseKeyedPooledObjectFactory<ServerDetai
 
     @Override
     public Session create(ServerDetails serverDetails) throws Exception {
-        log.info("Create Session : hash : {}", serverDetails.hashCode());
+        log.debug("Create Session. hash : {}", serverDetails.hashCode());
 
         JSch jSch = new JSch();
         Session session = jSch.getSession(
@@ -29,6 +31,7 @@ public class JSchSessionFactory extends BaseKeyedPooledObjectFactory<ServerDetai
         session.setUserInfo(serverDetails.getUserInfo());
         session.setTimeout(60000);
         session.setPassword(serverDetails.getUserInfo().getPassword());
+        session.setDaemonThread(true);
 
         return session;
     }
@@ -43,7 +46,9 @@ public class JSchSessionFactory extends BaseKeyedPooledObjectFactory<ServerDetai
         Session session = pool.getObject();
 
         if (session != null) {
-            log.info("Active session : {} - {}", simpleSessionInfo(session), session);
+            if (log.isDebugEnabled()) {
+                log.debug("Active session : {} - {}", simpleSessionInfo(session), session);
+            }
             session.connect();
         }
     }
@@ -53,7 +58,10 @@ public class JSchSessionFactory extends BaseKeyedPooledObjectFactory<ServerDetai
         Session session = pool.getObject();
 
         if (session != null) {
-            log.info("Connect session : {} - {}", simpleSessionInfo(session), session);
+            if (log.isDebugEnabled()) {
+                log.debug("Connect session : {} - {}", simpleSessionInfo(session), session);
+            }
+
             return session.isConnected();
         }
 
@@ -65,7 +73,10 @@ public class JSchSessionFactory extends BaseKeyedPooledObjectFactory<ServerDetai
         Session session = pool.getObject();
 
         if (session != null) {
-            log.info("DisConnect session : {} - {}", simpleSessionInfo(session), session);
+            if (log.isDebugEnabled()) {
+                log.debug("DisConnect session : {} - {}", simpleSessionInfo(session), session);
+            }
+
             session.disconnect();
         }
     }

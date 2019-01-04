@@ -36,7 +36,7 @@ public class SshController {
     }
 
     // TEMP
-    @Autowired
+    /*@Autowired
     private SimpMessagingTemplate messagingTemplate;
     private ServerDetails serverDetails;
     private Session session;
@@ -63,10 +63,10 @@ public class SshController {
         session.connect();
         channel = session.openChannel("shell");
         channel.connect();
-    }
+    }*/
     // -- TEMP
 
-    @MessageMapping("/ssh/shell")
+    /*@MessageMapping("/ssh/shell")
     public void execute(@Payload String message) throws IOException {
         log.info("## Receive message : " + message);
         PrintStream ps = new PrintStream(channel.getOutputStream());
@@ -109,5 +109,5 @@ public class SshController {
         } catch (Exception e) {
             System.out.println("Error while reading channel output: " + e);
         }
-    }
+    }*/
 }

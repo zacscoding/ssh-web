@@ -7,6 +7,8 @@ import org.apache.commons.pool2.impl.GenericKeyedObjectPoolConfig;
 import ssh.core.model.ServerDetails;
 
 /**
+ * JSch Session pool
+ *
  * @author zacconding
  * @Date 2018-12-31
  * @GitHub : https://github.com/zacscoding
